@@ -1,10 +1,11 @@
 # Upgrade roadmap
 
-- [ ] Audit existing app and connected production configuration.
-- [ ] Enable Paddle test payments after explicit confirmation; configure actual monthly/yearly prices and billing history.
-- [ ] Implement and verify signed, idempotent webhooks and server-owned entitlements.
-- [ ] Audit Cloudflare bucket, Worker bindings, and three media domains before confirmed mutations.
-- [ ] Implement authenticated R2 uploads and durable capture metadata; verify readback/CDN.
-- [ ] Preserve capture/router safeguards and verify publisher isolation/health.
-- [ ] Add requested luxury billing/media experience and AssistLoop where supporting services exist.
-- [ ] Run relevant tests and report verification status; do not deploy live without environment confirmation.
+- [x] Audit current app and accessible production configuration; evidence in UPGRADE_AUDIT.md.
+- [ ] Enable Paddle test payments — blocked by Free plan and pending explicit enable confirmation; then collect tier prices.
+- [ ] Implement billing/history and signed, idempotent webhook entitlements — blocked by payment enablement.
+- [x] Verify resofit-cdn, MEDIA_BUCKET, and the three custom domain mappings without mutations.
+- [ ] Inspect DNS — blocked by Cloudflare DNS Read permission or zone scope (HTTP 403).
+- [ ] Implement authenticated R2 uploads/metadata and verify readback/CDN — blocked by unaudited deployed Worker contracts and authorized test media.
+- [ ] Preserve capture/router safeguards and verify publisher isolation/health — blocked by absent source/contracts and safe test job/account.
+- [ ] Add real luxury billing/media controls and AssistLoop — blocked by provider/capture/personalization contracts; do not invent data.
+- [ ] Verify actual checkout/webhook/entitlement/upload/CDN/publisher flows — blocked as above; no production deployment or readiness claim.
