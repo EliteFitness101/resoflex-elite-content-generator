@@ -14,6 +14,20 @@ Audit date: 2026-10-25 UTC. Source: uploaded upgrade brief, repository audit, wo
 - `media.resofit.fit` is an enabled R2 custom domain on `resofit-cdn`, with active SSL and ownership.
 - No Cloudflare resources, bindings, DNS records, or deployments were changed. The connection is available for chat audit only, not linked to the application.
 
+## Continued media source and runtime audit
+
+The deployed `shopb2k` script was retrieved read-only with HTTP 200. Evidence below refers to line numbers in the retrieved multipart bundle; bundled source is not proof that a production flow works.
+
+- Direct upload accepts POST with a server bearer write token and uses MEDIA_BUCKET (5475–5523). It validates keys restricted to public/chatb2k prefixes (5450–5467), rejects empty bodies, checks declared and actual 50 MiB limits, and applies a media MIME allowlist. No content sniffing or end-user ownership checks are shown in this handler.
+- Content/media host PUT and DELETE require the write token (5530–5565). PUT checks size but **does not apply the upload handler's MIME allowlist**. This sibling-path inconsistency should be reconciled only after auditing existing accepted formats.
+- The bundled application `/api/media` write proxy is admin-authorized using a validated user and role check (27103–27127). Its allowlist includes additional formats such as PDF, GIF, AVIF, and WebM (27070–27081); preserve intentional format support when reconciling validation.
+- Public reads use key validation and stored object metadata. Media uploads do not show durable capture attribution/rights metadata in these handlers. Cart capture records RSID and UTM but is not proof of capture-job attribution.
+- A bundled `/api/content/publish` route exposes configuration status and secret-authorized publish/dry_run behavior, with Buffer publishing calls (27762–27830). A cron publisher is also registered. No organization/account/channel failure isolation or BIGO rights flow was verified.
+- Live read-only probes: HEAD `/` returned content 404, upload 405, media 404. These expected root-path errors prove HTTPS responses only, not successful uploads or object delivery.
+- **Live anomaly:** GET `https://content.resofit.fit/public/audit-nonexistent-20261025.mp4` returned **500**, not the 404 expected from the source for a missing object. GET with disallowed `private/` prefix returned 404. No write, upload, delete, or publish was performed. The 500 requires deployed error-log investigation before upload readiness can be claimed.
+- Known authorized public media object and safe capture/publishing job are still needed for actual readback/CDN and publisher verification. No object keys were enumerated or guessed beyond a deliberately nonexistent audit key.
+- Existing test result: one placeholder smoke test passed; it does not verify any business integration. Latest app build log reports build OK.
+
 ## Verification matrix
 
 | Requested flow | Status | Evidence / next requirement |
@@ -28,10 +42,10 @@ Audit date: 2026-10-25 UTC. Source: uploaded upgrade brief, repository audit, wo
 | Worker custom domain mappings | Verified | Workers domains API returned HTTP 200 for content/upload production mappings. |
 | R2 custom domain configuration | Verified | Bucket custom domains API returned HTTP 200 with active media domain. |
 | DNS records | Blocked | DNS records API returned HTTP 403 Authentication error. Check DNS Read permission and zone scope; no retry or alternate route attempted. |
-| Authenticated binary upload/readback | Unverified | No authenticated upload performed; Worker API contract, identity handling, limits and object validation need audit. |
+| Authenticated binary upload/readback | Unverified | Source audited; no authenticated upload performed. MIME validation differs across write paths; content missing-object GET returned 500. |
 | Actual CDN object delivery | Unverified | Domain configuration is not evidence of a delivered object; need known authorized media object for readback. |
-| Durable capture metadata | Unverified | Current app has no capture implementation; deployed Worker capture/data contracts not inspected. |
-| BIGO/ChatB2K captures and publisher health | Blocked | Flows absent from this repository; deployed service/source and safe test account/job needed. |
+| Durable capture metadata | Unverified | Retrieved media write handlers do not show durable capture metadata; cart RSID/UTM capture is separate. |
+| BIGO/ChatB2K captures and publisher health | Blocked | Bundled publisher exists in separate deployed service, not this app; safe test account/job and runtime checks needed. |
 | Rights, attribution, RSID, UTM, scheduling, isolation | Unverified | Existing production behavior not exercised; preserve before changes. |
 | Premium interface and AssistLoop | Blocked pending contracts | Existing luxury UI is present; real billing/media controls and personalization must not use invented data or imply enabled services. |
 
