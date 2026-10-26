@@ -10,4 +10,6 @@
 - [ ] Implement authenticated R2 uploads/metadata and verify readback/CDN — depends on Worker audit and authorized test media.
 - [ ] Preserve capture/router safeguards and verify publisher isolation/health — blocked by absent source/contracts and safe test job/account.
 - [ ] Add real luxury billing/media controls and AssistLoop — blocked by provider/capture/personalization contracts; do not invent data.
-- [ ] Verify actual checkout/webhook/entitlement/upload/CDN/publisher flows — blocked as above; no production deployment or readiness claim.
+- [ ] Verify actual checkout/webhook/entitlement/upload/CDN/publisher flows — blocked as above; no production deployment or readiness claim.- [x] Build Processed Media page, private storage, and Dropbox sync function in this app.
+- [ ] Add Dropbox app credentials, run first sync, schedule automatic sync — blocked on user's Dropbox credentials.
+- [ ] R2 CDN/transformations for media.resofit.fit — recommendation only; needs explicit confirmation (production + cost).

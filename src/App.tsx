@@ -12,6 +12,7 @@ import Templates from "./pages/Templates";
 import Automation from "./pages/Automation";
 import Analytics from "./pages/Analytics";
 import Team from "./pages/Team";
+import Media from "./pages/Media";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/automation" element={<Automation />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/team" element={<Team />} />
+            <Route path="/media" element={<Media />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

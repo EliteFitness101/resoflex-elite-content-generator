@@ -1,0 +1,1 @@
+- Processed media sync from Dropbox lands in a private storage bucket served by short-lived signed links; sync is idempotent by Dropbox file revision. Why: workspace blocks public buckets and repeat runs must not duplicate files.

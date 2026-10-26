@@ -14,7 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      media_assets: {
+        Row: {
+          dropbox_path: string
+          dropbox_rev: string
+          id: string
+          kind: string
+          modified_at: string | null
+          name: string
+          size_bytes: number
+          storage_path: string
+          synced_at: string
+        }
+        Insert: {
+          dropbox_path: string
+          dropbox_rev: string
+          id?: string
+          kind: string
+          modified_at?: string | null
+          name: string
+          size_bytes?: number
+          storage_path: string
+          synced_at?: string
+        }
+        Update: {
+          dropbox_path?: string
+          dropbox_rev?: string
+          id?: string
+          kind?: string
+          modified_at?: string | null
+          name?: string
+          size_bytes?: number
+          storage_path?: string
+          synced_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

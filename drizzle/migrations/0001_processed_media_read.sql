@@ -1,0 +1,1 @@
+CREATE POLICY "Processed media files readable for signed links" ON storage.objects FOR SELECT TO anon, authenticated USING (bucket_id = 'processed-media');
