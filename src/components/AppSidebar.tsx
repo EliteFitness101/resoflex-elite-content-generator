@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { LayoutDashboard, Sparkles, Kanban, Library, Image, CalendarRange, BarChart3, Users, Crown } from "lucide-react";
+import { LayoutDashboard, Sparkles, Kanban, Library, Image, CalendarRange, BarChart3, Users, Crown, Film } from "lucide-react";
 import {
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel,
   SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar,
@@ -13,6 +13,7 @@ const main = [
 ];
 const studio = [
   { title: "Visual Templates", url: "/templates", icon: Image },
+  { title: "Processed Media", url: "/media", icon: Film },
   { title: "Automation", url: "/automation", icon: CalendarRange },
   { title: "Analytics", url: "/analytics", icon: BarChart3 },
   { title: "Team", url: "/team", icon: Users },
